@@ -1,1 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Учебный портал{% endblock %}</title>
 
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#F7F4ED',
+            ink: '#1F2A24',
+            forest: '#2F5233',
+            forestDark: '#22401A',
+            brass: '#B08D57',
+            muted: '#6B6459',
+          },
+          fontFamily: {
+            serif: ['Lora', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    body { background-color: #F7F4ED; }
+    .rule { border-color: #1F2A24; opacity: 0.12; }
+    .brass-underline { text-decoration: underline; text-decoration-color: #B08D57; text-underline-offset: 4px; }
+  </style>
+
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="min-h-screen flex flex-col font-sans text-ink">
+
+  <!-- Header -->
+  <header class="border-b rule">
+    <div class="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
+      <a href="{% url 'home' %}" class="font-serif text-xl font-semibold text-forest">
+        Учебный портал
+      </a>
+
+      <nav class="flex items-center gap-6 text-sm">
+        <a href="{% url 'home' %}" class="hover:text-forest transition-colors">Курсы</a>
+
+        {% if user.is_authenticated %}
+          <a href="{% url 'dashboard' %}" class="hover:text-forest transition-colors">Кабинет</a>
+          <form action="{% url 'logout' %}" method="post" class="inline">
+            {% csrf_token %}
+            <button type="submit" class="hover:text-forest transition-colors">Выйти</button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}" class="hover:text-forest transition-colors">Войти</a>
+          <a href="{% url 'register' %}"
+             class="px-4 py-1.5 bg-forest text-paper rounded-sm hover:bg-forestDark transition-colors">
+            Регистрация
+          </a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="flex-1 max-w-5xl mx-auto w-full px-6 py-10">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t rule mt-auto">
+    <div class="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between text-sm text-muted">
+      <span>Учебный портал — курсовой проект</span>
+      <span class="font-serif italic">Знание — единственная вещь, которая растёт, когда её делишь</span>
+    </div>
+  </footer>
+
+</body>
+</html>
