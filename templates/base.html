@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Учебный портал{% endblock %}</title>
+  <title>{% block title %}SUBAY{% endblock %}</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -32,7 +32,7 @@
 
   <style>
     body { background-color: #F7F4ED; }
-    .rule { border-color: #1F2A24; opacity: 0.12; }
+    .rule { border-color: rgba(31, 42, 36, 0.12); }
     .brass-underline { text-decoration: underline; text-decoration-color: #B08D57; text-underline-offset: 4px; }
   </style>
 
@@ -44,25 +44,13 @@
   <header class="border-b rule">
     <div class="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
       <a href="{% url 'home' %}" class="font-serif text-xl font-semibold text-forest">
-        Учебный портал
+        SUBAY
       </a>
-
       <nav class="flex items-center gap-6 text-sm">
-        <a href="{% url 'home' %}" class="hover:text-forest transition-colors">Курсы</a>
-
-        {% if user.is_authenticated %}
-          <a href="{% url 'dashboard' %}" class="hover:text-forest transition-colors">Кабинет</a>
-          <form action="{% url 'logout' %}" method="post" class="inline">
-            {% csrf_token %}
-            <button type="submit" class="hover:text-forest transition-colors">Выйти</button>
-          </form>
-        {% else %}
-          <a href="{% url 'login' %}" class="hover:text-forest transition-colors">Войти</a>
-          <a href="{% url 'register' %}"
-             class="px-4 py-1.5 bg-forest text-paper rounded-sm hover:bg-forestDark transition-colors">
-            Регистрация
-          </a>
-        {% endif %}
+    <a href="{% url 'home' %}"
+       class="hover:text-forest transition-colors">
+        SQL Challenges
+    </a>
       </nav>
     </div>
   </header>
@@ -75,7 +63,7 @@
   <!-- Footer -->
   <footer class="border-t rule mt-auto">
     <div class="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between text-sm text-muted">
-      <span>Учебный портал — курсовой проект</span>
+      <span>SUBAY</span>
       <span class="font-serif italic">Знание — единственная вещь, которая растёт, когда её делишь</span>
     </div>
   </footer>
