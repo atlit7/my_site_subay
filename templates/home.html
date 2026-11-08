@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}SUBAY - SQL Practice{% endblock %}
+
+{% block content %}
+
+<h1 class="font-serif text-4xl text-forest mb-3">
+    Practice SQL with SUBAY
+</h1>
+
+<p class="text-muted mb-10">
+    Choose a category and start solving SQL tasks.
+</p>
+
+{% for course in courses %}
+
+<section class="bg-white border rounded-lg p-6 mb-6">
+
+    <h2 class="font-serif text-2xl text-forest mb-2">
+        {{ course.title }}
+    </h2>
+
+    <p class="text-muted mb-5">
+        {{ course.description }}
+    </p>
+
+    {% for task in course.tasks.all %}
+
+    <div class="border-t py-4 flex justify-between items-center gap-4">
+
+        <div>
+            <a href="{% url 'task_detail' task.id %}"
+               class="font-semibold text-forest hover:underline">
+                {{ task.title }}
+            </a>
+
+            <p class="text-sm text-muted mt-1">
+                {{ task.description|truncatechars:100 }}
+            </p>
+        </div>
+
+        <div class="text-sm text-right shrink-0">
+            <p>{{ task.get_difficulty_display }}</p>
+            <p>{{ task.points }} points</p>
+        </div>
+
+    </div>
+
+    {% empty %}
+    <p class="text-muted">No tasks available.</p>
+    {% endfor %}
+
+</section>
+
+{% empty %}
+<p>No categories found. Run the seed_demo command.</p>
+{% endfor %}
+
+{% endblock %}
